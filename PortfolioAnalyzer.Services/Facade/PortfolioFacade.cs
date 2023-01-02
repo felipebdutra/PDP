@@ -4,7 +4,7 @@ using PortfolioAnalyzer.Services;
 using PortfolioAnalyzer.Services.Bank;
 using PortfolioAnalyzer.Services.History;
 
-namespace PortfolioAnalyzer.Console
+namespace PortfolioAnalyzer.Services.Facade
 {
     public class PortfolioFacade : IPortfolioFacade
     {
@@ -16,7 +16,7 @@ namespace PortfolioAnalyzer.Console
         private List<FinancialInstrument> _instruments;
         private IList<BankAccount> _totalCash;
 
-        public PortfolioFacade(IBankService bankService, 
+        public PortfolioFacade(IBankService bankService,
             ICurrencyConvertionService currencyService,
             IUpdateStockPriceHistoryService updateStockPriceHistoryService,
             IPortfolioService portfolioService)
@@ -31,6 +31,17 @@ namespace PortfolioAnalyzer.Console
         {
             var getTotalCash = _bankService.GetTotalCashValueAsync();
             var getLatestPrices = _updateStockPriceHistoryService.GetInstrumentCurrentPricesAsync();
+
+            await Task.WhenAll(getTotalCash, getLatestPrices, _currencyService.LoadCurrenciesAsync());
+
+            _instruments = getLatestPrices.Result.Instruments;
+            _totalCash = getTotalCash.Result;
+        }
+
+        public async Task LoadStoredDataAsync()
+        {
+            var getTotalCash = _bankService.GetTotalCashValueAsync();
+            var getLatestPrices = _updateStockPriceHistoryService.GetInstrumentStoredPricesAsync();
 
             await Task.WhenAll(getTotalCash, getLatestPrices, _currencyService.LoadCurrenciesAsync());
 

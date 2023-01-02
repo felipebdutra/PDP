@@ -21,9 +21,9 @@ public class StockPriceHistoryService : IStockPriceHistoryService
         _logBuilder = logBuilder;
     }
 
-    public async Task<StockPricesHistory> GetLatestHistoricClosingDateAsync()
+    public Task<StockPricesHistory> GetLatestHistoricClosingDateAsync()
     {
-        return await _stockPricesHistoryRepository.GetLatestHistoricClosingDateAsync();
+        return _stockPricesHistoryRepository.GetLatestHistoricClosingDateAsync();
     }
 
     public async Task<StockPricesHistory> SyncLatestClosingPricesAsync(IEnumerable<string> tickers)

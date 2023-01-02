@@ -1,7 +1,6 @@
 using PortfolioAnalyzer.Core.PortfolioAggregate;
-using PortfolioAnalyzer.Services.History;
 
-namespace PortfolioAnalyzer.Console;
+namespace PortfolioAnalyzer.Services.History;
 
 public class UpdateStockPriceHistoryService : IUpdateStockPriceHistoryService
 {
@@ -22,5 +21,11 @@ public class UpdateStockPriceHistoryService : IUpdateStockPriceHistoryService
         var tickers = await _portfolioService.GetTickersAsync();
 
         return await _stockPriceHistoryService.SyncLatestClosingPricesAsync(tickers);
+    }
+
+
+    public async Task<StockPricesHistory> GetInstrumentStoredPricesAsync()
+    {
+        return await _stockPriceHistoryService.GetLatestHistoricClosingDateAsync();
     }
 }

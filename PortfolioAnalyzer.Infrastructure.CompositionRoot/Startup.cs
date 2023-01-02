@@ -1,7 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
-using PortfolioAnalyzer.Console;
 using PortfolioAnalyzer.Infrastructure.Database;
 using PortfolioAnalyzer.Infrastructure.Integration.Api;
 using PortfolioAnalyzer.Infrastructure.Integration.Api.Alphavantage;
@@ -12,6 +11,7 @@ using PortfolioAnalyzer.Repository.Bank;
 using PortfolioAnalyzer.Repository.Portfolio;
 using PortfolioAnalyzer.Services;
 using PortfolioAnalyzer.Services.Bank;
+using PortfolioAnalyzer.Services.Facade;
 using PortfolioAnalyzer.Services.History;
 using PortfolioAnalyzer.Services.Portfolio;
 
@@ -74,6 +74,8 @@ public class Startup
         service.AddScoped<ICurrencyConvertionService, CurrencyConvertionService>();
         service.AddScoped<IBankService, BankService>();
         service.AddTransient<IUpdateStockPriceHistoryService, UpdateStockPriceHistoryService>();
+
+        service.AddTransient<IPortfolioFacade, PortfolioFacade>();
 
         service.AddTransient<LogBuilder>();
         return this;
