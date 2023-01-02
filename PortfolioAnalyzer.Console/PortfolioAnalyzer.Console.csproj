@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="appsettings.Development.json" />
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\PortfolioAnalyzer.Infrastructure.CompositionRoot\appbasesettings.json" Link="appbasesettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.18.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PortfolioAnalyzer.Infrastructure\PortfolioAnalyzer.Infrastructure.csproj" />
+    <ProjectReference Include="..\PortfolioAnalyzer.Repository\PortfolioAnalyzer.Repository.csproj" />
+    <ProjectReference Include="..\PortfolioAnalyzer.Services\PortfolioAnalyzer.Services.csproj" />
+    <ProjectReference Include="..\PortfolioAnalyzer.Core\PortfolioAnalyzer.Core.csproj" />
+    <ProjectReference Include="..\PortfolioAnalyzer.Infrastructure.CompositionRoot\PortfolioAnalyzer.Infrastructure.CompositionRoot.csproj" />
+  </ItemGroup>
+</Project>

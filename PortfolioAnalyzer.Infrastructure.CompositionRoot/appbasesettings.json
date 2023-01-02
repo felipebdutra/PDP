@@ -1,0 +1,7 @@
+{
+  "MongoDb_ConnectionString": "mongodb://localhost:27017",
+  "AlphaVantageBaseUrl": "https://www.alphavantage.co/",
+  "AlphaVantageApiKey": "LD5XZKPD6OG9STGC",
+  "CurrencyApiBaseUrl": "https://api.currencyapi.com",
+  "CurrencyApiApiKey": "3N25vrVMc69ppptpV0gJqHrZcimkyJjHIYqCa54c"
+}

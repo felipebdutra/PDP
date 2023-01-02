@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="..\PortfolioAnalyzer.Infrastructure.CompositionRoot\appbasesettings.json" Link="appbasesettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PortfolioAnalyzer.Repository\PortfolioAnalyzer.Repository.csproj" />
+    <ProjectReference Include="..\PortfolioAnalyzer.Services\PortfolioAnalyzer.Services.csproj" />
+    <ProjectReference Include="..\PortfolioAnalyzer.Infrastructure\PortfolioAnalyzer.Infrastructure.csproj" />
+    <ProjectReference Include="..\PortfolioAnalyzer.Infrastructure.CompositionRoot\PortfolioAnalyzer.Infrastructure.CompositionRoot.csproj" />
+    <ProjectReference Include="..\PortfolioAnalyzer.Core\PortfolioAnalyzer.Core.csproj" />
+  </ItemGroup>
+</Project>
