@@ -71,7 +71,7 @@ public class Startup
         service.AddScoped<IPortfolioService, PortfolioService>();
         service.AddScoped<IPortfolioCalculatorService, PortfolioCalculatorService>();
         service.AddScoped<IStockPriceHistoryService, StockPriceHistoryService>();
-        service.AddScoped<ICurrencyConvertionService, CurrencyConvertionService>();
+        service.AddSingleton<ICurrencyConvertionService, CurrencyConvertionService>();
         service.AddScoped<IBankService, BankService>();
         service.AddTransient<IUpdateStockPriceHistoryService, UpdateStockPriceHistoryService>();
 

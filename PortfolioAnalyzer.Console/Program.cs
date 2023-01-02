@@ -3,22 +3,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
 using PortfolioAnalyzer.Infrastructure.Loggin;
-using PortfolioAnalyzer.Services;
-using PortfolioAnalyzer.Services.Bank;
 using PortfolioAnalyzer.Services.Facade;
-using PortfolioAnalyzer.Services.History;
 
 var provider = Config();
 
-var portfolioService = provider.GetRequiredService<IPortfolioService>();
-var stockPriceHistoryService = provider.GetRequiredService<IStockPriceHistoryService>();
-var currencyService = provider.GetRequiredService<ICurrencyConvertionService>();
-var bankService = provider.GetRequiredService<IBankService>();
-var updateStockPriceHistoryService = provider.GetRequiredService<IUpdateStockPriceHistoryService>();
-
 var database = provider.GetRequiredService<IMongoDatabase>();
+var portfolioFacade = provider.GetRequiredService<IPortfolioFacade>();
 
-await GenerateReport(portfolioService, stockPriceHistoryService, currencyService, bankService, database, updateStockPriceHistoryService);
+await GenerateReport(portfolioFacade, database);
 
 IServiceProvider Config()
 {
@@ -37,19 +29,8 @@ IServiceProvider Config()
     return serviceScope.ServiceProvider;
 }
 
-static async Task GenerateReport(IPortfolioService portfolioService,
-    IStockPriceHistoryService stockPriceHistoryService,
-    ICurrencyConvertionService currencyService,
-    IBankService bankService,
-    IMongoDatabase database,
-    IUpdateStockPriceHistoryService updateStockPriceHistoryService)
+static async Task GenerateReport(IPortfolioFacade portfolioFacade, IMongoDatabase database)
 {
-
-    var facade = new PortfolioFacade(bankService,
-        currencyService,
-        updateStockPriceHistoryService,
-        portfolioService);
-
     var consoleLogBuilder = new LogBuilder(new ConsoleLogStrategy());
     var dbLogBuilder = new LogBuilder(new DatabaseLogStrategy(database));
 
@@ -59,17 +40,17 @@ static async Task GenerateReport(IPortfolioService portfolioService,
         consoleLogBuilder.WriteLog(logStartExecution);
         dbLogBuilder.WriteLog(logStartExecution);
 
-        await facade.LoadDataAsync();
+        await portfolioFacade.LoadDataAsync();
 
         string logLoadData = "Syncronization data loaded successfuly";
         consoleLogBuilder.WriteLog(logLoadData);
         dbLogBuilder.WriteLog(logLoadData);
 
-        var info = await facade.ProcessDataAsync();
+        var info = await portfolioFacade.ProcessDataAsync();
 
         string logFinishExecution = $@"Sync finished  
-        USD Cash : {info.TotalCashUSD}, Stock : {info.TotalPortfolioUSD},  Total : {info.TotalUSD} .
-        PLN Cash : {currencyService["PLN"] *  info.TotalCashUSD}, Stock : {currencyService["PLN"] * info.TotalPortfolioUSD}, Total : {currencyService["PLN"] * info.TotalUSD}";
+        USD Cash : {info.TotalCash}, Stock : {info.TotalPortfolio},  Total : {info.Total} .";
+        //PLN Cash : {currencyService["PLN"] *  info.TotalCashUSD}, Stock : {currencyService["PLN"] * info.TotalPortfolioUSD}, Total : {currencyService["PLN"] * info.TotalUSD}";
 
         consoleLogBuilder.WriteLog(logFinishExecution);
         dbLogBuilder.WriteLog(logFinishExecution);

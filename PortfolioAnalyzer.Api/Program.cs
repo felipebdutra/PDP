@@ -12,8 +12,7 @@ builder.Host.ConfigureHostConfiguration(x => x.AddJsonFile(prePathConfig + "appb
     .ConfigureServices((context, services) =>
             {
                 new Startup(context).ConfigureServices(services);
-            })
-            ;
+            });
 
 // Add services to the container.
 builder.Services.AddControllers();

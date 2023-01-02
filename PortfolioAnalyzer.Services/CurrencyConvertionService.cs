@@ -19,6 +19,10 @@ namespace PortfolioAnalyzer.Services
             _currencyApiClient = currencyApiClient;
         }
 
+        public bool IsCurrencySupported(string currency) => _currency.ContainsKey(currency);
+
+        public decimal ConvertTo(decimal value , string currency) => value * _currency[currency];
+
         public async Task<Dictionary<string, decimal>> LoadCurrenciesAsync()
         {
             _currency ??= await _currencyApiClient.LoadCurrenciesAsync();

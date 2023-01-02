@@ -34,8 +34,11 @@ namespace PortfolioAnalyzer.Services.Facade
 
             await Task.WhenAll(getTotalCash, getLatestPrices, _currencyService.LoadCurrenciesAsync());
 
-            _instruments = getLatestPrices.Result.Instruments;
-            _totalCash = getTotalCash.Result;
+            var stockHistory = await getLatestPrices;
+            var totalCash = await getTotalCash;
+
+            _instruments = stockHistory.Instruments;
+            _totalCash = totalCash;
         }
 
         public async Task LoadStoredDataAsync()
@@ -57,9 +60,9 @@ namespace PortfolioAnalyzer.Services.Facade
 
             return new PortfolioInfo()
             {
-                TotalUSD = total + totalDollarCash,
-                TotalCashUSD = totalDollarCash,
-                TotalPortfolioUSD = total
+                Total = total + totalDollarCash,
+                TotalCash = totalDollarCash,
+                TotalPortfolio = total
             };
         }
     }

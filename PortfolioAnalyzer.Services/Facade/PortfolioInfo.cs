@@ -8,8 +8,8 @@ namespace PortfolioAnalyzer.Services.Facade
 {
     public class PortfolioInfo
     {
-        public decimal TotalUSD { get; set; }
-        public decimal TotalCashUSD { get; set; }
-        public decimal TotalPortfolioUSD { get; set; }
+        public decimal Total { get; set; }
+        public decimal TotalCash { get; set; }
+        public decimal TotalPortfolio { get; set; }
     }
 }
