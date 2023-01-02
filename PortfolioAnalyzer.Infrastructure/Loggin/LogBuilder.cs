@@ -26,12 +26,19 @@ namespace PortfolioAnalyzer.Infrastructure.Loggin
         
         public void Clear() => _stringBuilder.Clear();
 
-        public void WriteLog(ILogStrategy logStrategy = null)
+        public void WriteLog(ILogStrategy logStrategy = null, string message = null)
         {
             if(logStrategy is not null)
                 _logStrategy = logStrategy;
 
+            if(!string.IsNullOrEmpty(message))
+            {
+                WriteLog(message);
+                return;
+            }
+
             _logStrategy.WriteLog(_stringBuilder);
+        
             _stringBuilder.Clear();
         }
 

@@ -1,13 +1,14 @@
 using PortfolioAnalyzer.Core.PortfolioAggregate;
+using PortfolioAnalyzer.Services.History;
 
 namespace PortfolioAnalyzer.Console;
 
-public class UpdateStockPriceHistory
+public class UpdateStockPriceHistoryService : IUpdateStockPriceHistoryService
 {
     private IPortfolioService _portfolioService { get; set; }
     private IStockPriceHistoryService _stockPriceHistoryService { get; set; }
 
-    public UpdateStockPriceHistory(
+    public UpdateStockPriceHistoryService(
         IPortfolioService portfolioService,
         IStockPriceHistoryService stockPriceHistoryService
     )

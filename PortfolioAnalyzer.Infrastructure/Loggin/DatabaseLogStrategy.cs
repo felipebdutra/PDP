@@ -1,21 +1,26 @@
 ﻿using MongoDB.Driver;
+using PortfolioAnalyzer.Infrastructure.Repository;
 using System.Text;
 
 namespace PortfolioAnalyzer.Infrastructure.Loggin
 {
-    public class DatabaseLogStrategy 
+    public class DatabaseLogStrategy : RepositoryBase<DatabaseLog> , ILogStrategy
     {
-        public int MyProperty { get; set; }
-
-
-        public DatabaseLogStrategy(IMongoDatabase database)
-        {
+        public DatabaseLogStrategy(IMongoDatabase database) : 
+            base(database, RepositoryConstants.MongoDb.Database.PortfolioAnalyzer.Collections.ExecutionLog)
+        {           
 
         }
 
-            public void WriteLog(StringBuilder message)
+        public void WriteLog(StringBuilder message)
         {
-            throw new NotImplementedException();
+            var log = new DatabaseLog()
+            {
+                Date = DateTime.Now,
+                Message = message.ToString()
+            };
+
+            Insert(log);
         }
     }
 }

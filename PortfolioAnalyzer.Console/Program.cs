@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MongoDB.Driver;
 using PortfolioAnalyzer.Console;
-using PortfolioAnalyzer.Services;
-using Microsoft.Extensions.Configuration;
-using PortfolioAnalyzer.Services.Bank;
 using PortfolioAnalyzer.Infrastructure.Loggin;
+using PortfolioAnalyzer.Services;
+using PortfolioAnalyzer.Services.Bank;
+using PortfolioAnalyzer.Services.History;
 
 var provider = Config();
 
@@ -13,9 +14,11 @@ var portfolioService = provider.GetRequiredService<IPortfolioService>();
 var stockPriceHistoryService = provider.GetRequiredService<IStockPriceHistoryService>();
 var currencyService = provider.GetRequiredService<ICurrencyConvertionService>();
 var bankService = provider.GetRequiredService<IBankService>();
+var updateStockPriceHistoryService = provider.GetRequiredService<IUpdateStockPriceHistoryService>();
 
+var database = provider.GetRequiredService<IMongoDatabase>();
 
-await GenerateReport(portfolioService, stockPriceHistoryService, currencyService, bankService);
+await GenerateReport(portfolioService, stockPriceHistoryService, currencyService, bankService, database, updateStockPriceHistoryService);
 
 IServiceProvider Config()
 {
@@ -34,30 +37,48 @@ IServiceProvider Config()
     return serviceScope.ServiceProvider;
 }
 
-static async Task GenerateReport(IPortfolioService portfolioService, 
-    IStockPriceHistoryService stockPriceHistoryService, 
-    ICurrencyConvertionService currencyService, 
-    IBankService bankService)
+static async Task GenerateReport(IPortfolioService portfolioService,
+    IStockPriceHistoryService stockPriceHistoryService,
+    ICurrencyConvertionService currencyService,
+    IBankService bankService,
+    IMongoDatabase database,
+    IUpdateStockPriceHistoryService updateStockPriceHistoryService)
 {
-    var logBuilder = new LogBuilder(new ConsoleLogStrategy());
-    logBuilder.WriteLog("Syncing latest stock close prices, it might take a few minutes");
 
-    var stockHistory = new UpdateStockPriceHistory(portfolioService, stockPriceHistoryService);
+    var facade = new PortfolioFacade(bankService,
+        currencyService,
+        updateStockPriceHistoryService,
+        portfolioService);
 
-    var getTotalCash = bankService.GetTotalCashValueAsync();
-    var getLatestPrices = stockHistory.GetInstrumentCurrentPricesAsync();
+    var consoleLogBuilder = new LogBuilder(new ConsoleLogStrategy());
+    var dbLogBuilder = new LogBuilder(new DatabaseLogStrategy(database));
 
-    await Task.WhenAll(getTotalCash, getLatestPrices, currencyService.LoadCurrenciesAsync());
+    try
+    {
+        string logStartExecution = "Syncing latest stock close prices, it might take a few minutes";
+        consoleLogBuilder.WriteLog(logStartExecution);
+        dbLogBuilder.WriteLog(logStartExecution);
 
-    logBuilder.WriteLog("Syncing latest stock close prices, it might take a few minutes");
+        await facade.LoadDataAsync();
 
-    var wallet = new WalletService(portfolioService, currencyService);
-    var total = await wallet.TotalPortfolioValue(getLatestPrices.Result.Instruments);
-    var totalDollarCash = currencyService.ToTotalDollar(getTotalCash.Result);
+        string logLoadData = "Syncronization data loaded successfuly";
+        consoleLogBuilder.WriteLog(logLoadData);
+        dbLogBuilder.WriteLog(logLoadData);
 
-    logBuilder.WriteLog($@"Total portfolio value : PLN : {currencyService["PLN"] * total} USD : {total} 
-                     Total cash value : PLN : {currencyService["PLN"] * totalDollarCash} USD {totalDollarCash} 
-                     Total Dollar: {string.Format("{0:N}", (total + totalDollarCash).ToString())}
-                     Total PLN : {string.Format("{0:N}", (currencyService["PLN"] * (total + totalDollarCash)).ToString())}");
+        var info = await facade.ProcessDataAsync();
 
+        string logFinishExecution = $@"Sync finished  
+        USD Cash : {info.TotalCashUSD}, Stock : {info.TotalPortfolioUSD},  Total : {info.TotalUSD} .
+        PLN Cash : {currencyService["PLN"] *  info.TotalCashUSD}, Stock : {currencyService["PLN"] * info.TotalPortfolioUSD}, Total : {currencyService["PLN"] * info.TotalUSD}";
+
+        consoleLogBuilder.WriteLog(logFinishExecution);
+        dbLogBuilder.WriteLog(logFinishExecution);
+    }
+    catch (Exception e)
+    {
+        string applicationFailedLog = $"Error during syncronization, application failed with the message {e.Message} - {e.InnerException?.Message}";
+
+        consoleLogBuilder.WriteLog(applicationFailedLog);
+        dbLogBuilder.WriteLog(applicationFailedLog);
+    }
 }

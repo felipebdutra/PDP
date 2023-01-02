@@ -2,6 +2,7 @@ using System.Drawing;
 using System.Collections.Immutable;
 using MongoDB.Driver;
 using PortfolioAnalyzer.Core.PortfolioAggregate;
+using PortfolioAnalyzer.Infrastructure.Repository;
 
 namespace PortfolioAnalyzer.Repository.Portfolio;
 

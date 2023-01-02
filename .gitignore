@@ -3,3 +3,24 @@
 ################################################################################
 
 /.config
+/.vs
+/.vscode
+/PortfolioAnalyzer.Api/bin
+/PortfolioAnalyzer.Api/obj/Debug/net6.0
+/PortfolioAnalyzer.Api/obj/Release/net6.0
+/PortfolioAnalyzer.Console/obj
+/PortfolioAnalyzer.Console/bin
+/PortfolioAnalyzer.Console/.vs
+/PortfolioAnalyzer.Api/obj/PortfolioAnalyzer.Api.csproj.nuget.dgspec.json
+/PortfolioAnalyzer.Core/obj
+/PortfolioAnalyzer.Core/bin
+/PortfolioAnalyzer.Console/IPortfolioFacade.cs
+/PortfolioAnalyzer.Infrastructure/bin
+/PortfolioAnalyzer.Infrastructure/obj
+/PortfolioAnalyzer.Infrastructure.CompositionRoot/obj
+/PortfolioAnalyzer.Infrastructure.CompositionRoot/bin
+/PortfolioAnalyzer.Repository/bin
+/PortfolioAnalyzer.Repository/obj
+/PortfolioAnalyzer.Services/bin
+/PortfolioAnalyzer.Services/obj
+/PortfolioAnalyzer.Api/obj

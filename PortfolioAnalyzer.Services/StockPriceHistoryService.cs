@@ -1,5 +1,6 @@
 using PortfolioAnalyzer.Core.PortfolioAggregate;
 using PortfolioAnalyzer.Infrastructure.Integration.Api;
+using PortfolioAnalyzer.Infrastructure.Loggin;
 using PortfolioAnalyzer.Repository.Portfolio;
 using System.Linq;
 
@@ -7,14 +8,17 @@ public class StockPriceHistoryService : IStockPriceHistoryService
 {
     private readonly IStockPricesHistoryRepository _stockPricesHistoryRepository;
     private readonly IStockMarketApiClient _stockMarketApiClient;
+    private readonly LogBuilder _logBuilder;
 
     public StockPriceHistoryService(
         IStockPricesHistoryRepository stockPricesHistoryRepository,
-        IStockMarketApiClient stockMarketApiClient
+        IStockMarketApiClient stockMarketApiClient,
+        LogBuilder logBuilder
     )
     {
         _stockPricesHistoryRepository = stockPricesHistoryRepository;
         _stockMarketApiClient = stockMarketApiClient;
+        _logBuilder = logBuilder;
     }
 
     public async Task<StockPricesHistory> GetLatestHistoricClosingDateAsync()
@@ -38,7 +42,7 @@ public class StockPriceHistoryService : IStockPriceHistoryService
         int totalSearches = tickers.Count();
         var chunk = tickers.Chunk<string>(_stockMarketApiClient.ChunkSize);
 
-        Console.WriteLine("Loading stock prices, please wait...");
+        _logBuilder.WriteLog(new ConsoleLogStrategy(), "Loading stock prices, please wait...");
 
         foreach (var tickerChunkOf5 in chunk)
         {
@@ -63,7 +67,8 @@ public class StockPriceHistoryService : IStockPriceHistoryService
 
             string logMessage = (totalReturned < totalSearches) ? $"{(totalReturned * 100) / totalSearches}% loaded " : "100% loaded";
 
-            Console.WriteLine(logMessage);
+            _logBuilder.WriteLog(logMessage);
+
         }
         return prices;
     }

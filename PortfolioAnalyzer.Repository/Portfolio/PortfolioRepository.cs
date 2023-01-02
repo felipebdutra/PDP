@@ -1,13 +1,14 @@
 ﻿using MongoDB.Driver;
 using PortfolioAnalyzer.Core.PortfolioAggregate;
+using PortfolioAnalyzer.Infrastructure.Repository;
 
 namespace PortfolioAnalyzer.Repository.Portfolio;
 
-public class DatabaseLOgRepository : RepositoryBase<Core.PortfolioAggregate.Portfolio>, IPortfolioRepository
+public class PortfolioRepository : RepositoryBase<Core.PortfolioAggregate.Portfolio>, IPortfolioRepository
 {
     private readonly IMongoCollection<Position> _positions;
 
-    public DatabaseLOgRepository(IMongoDatabase database) : base(database, RepositoryConstants.MongoDb.Database.PortfolioAnalyzer.Collections.Portfolio)
+    public PortfolioRepository(IMongoDatabase database) : base(database, RepositoryConstants.MongoDb.Database.PortfolioAnalyzer.Collections.Portfolio)
     {
         _positions = database.GetCollection<Position>(
             RepositoryConstants.MongoDb.Database.PortfolioAnalyzer.Collections.Position
