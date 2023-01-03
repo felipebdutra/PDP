@@ -9,6 +9,4 @@ public interface IStockMarketApiClient
     bool RequiresAutorization { get; }
 
     Task<decimal> GetClosePriceAsync(string ticker);
-
-    Task<decimal> GetInstradayPriceAsync(string ticker);
 }

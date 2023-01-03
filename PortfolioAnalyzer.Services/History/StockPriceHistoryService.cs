@@ -56,7 +56,7 @@ public class StockPriceHistoryService : IStockPriceHistoryService
                         new()
                         {
                             Ticker = ticker,
-                            Total = await _stockMarketApiClient.GetInstradayPriceAsync(ticker)
+                            Total = await _stockMarketApiClient.GetClosePriceAsync(ticker)
                         }
                     );
                 }
