@@ -50,7 +50,6 @@ static async Task GenerateReport(IPortfolioFacade portfolioFacade, IMongoDatabas
 
         string logFinishExecution = $@"Sync finished  
         USD Cash : {info.TotalCash}, Stock : {info.TotalPortfolio},  Total : {info.Total} .";
-        //PLN Cash : {currencyService["PLN"] *  info.TotalCashUSD}, Stock : {currencyService["PLN"] * info.TotalPortfolioUSD}, Total : {currencyService["PLN"] * info.TotalUSD}";
 
         consoleLogBuilder.WriteLog(logFinishExecution);
         dbLogBuilder.WriteLog(logFinishExecution);

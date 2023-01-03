@@ -1,4 +1,5 @@
 using PortfolioAnalyzer.Core.BankAggregate;
+using PortfolioAnalyzer.Infrastructure.Repository;
 
 namespace PortfolioAnalyzer.Repository.Bank
 {

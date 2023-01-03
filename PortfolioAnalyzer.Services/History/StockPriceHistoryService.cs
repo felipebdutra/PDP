@@ -2,7 +2,6 @@ using PortfolioAnalyzer.Core.PortfolioAggregate;
 using PortfolioAnalyzer.Infrastructure.Integration.Api;
 using PortfolioAnalyzer.Infrastructure.Loggin;
 using PortfolioAnalyzer.Repository.Portfolio;
-using System.Linq;
 
 public class StockPriceHistoryService : IStockPriceHistoryService
 {

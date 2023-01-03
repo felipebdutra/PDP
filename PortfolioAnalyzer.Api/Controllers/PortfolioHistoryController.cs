@@ -24,6 +24,7 @@ namespace PortfolioAnalyzer.Api.Controllers
         }
 
         [HttpGet]
+        [Route("GetLatestInfo")]
         public async Task<ActionResult<PortfolioInfo>> GetLatestReport(string currency = "PLN")
         {
             try
@@ -48,9 +49,13 @@ namespace PortfolioAnalyzer.Api.Controllers
 
                 return Ok(info);
             }
+            catch(ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
             catch (Exception e)
             {
-                _log.WriteLog(new DatabaseLogStrategy(_database), $"{e.Message} , {e.InnerException.Message}");
+                _log.WriteLog(new DatabaseLogStrategy(_database), $"{e.Message} , {e.InnerException?.Message}");
                 throw;
             }
         }

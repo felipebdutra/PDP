@@ -8,7 +8,7 @@ namespace PortfolioAnalyzer.Infrastructure.Integration.Api.Alphavantage
 {
     public static class AlphaVantageConsts
     {
-        public static readonly int RequestChunkSize = 5;
-        public static readonly int AuthorizationDelay = 120000;
+        public const int RequestChunkSize = 5;
+        public const int AuthorizationDelay = 120000;
     }
 }
