@@ -25,3 +25,4 @@
 /PortfolioAnalyzer.Services/obj
 /PortfolioAnalyzer.Api/obj
 /PortfolioAnalyzer.Application/obj
+/PortfolioAnalyzer.Application/bin/Debug/net6.0

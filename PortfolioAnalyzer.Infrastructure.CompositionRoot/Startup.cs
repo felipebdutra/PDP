@@ -14,6 +14,9 @@ using PortfolioAnalyzer.Services.Bank;
 using PortfolioAnalyzer.Services.Facade;
 using PortfolioAnalyzer.Services.History;
 using PortfolioAnalyzer.Services.Portfolio;
+using MediatR;
+using Queries = PortfolioAnalyzer.Application.Queries;
+using PortfolioAnalyzer.Application.Queries.GetAllBanks;
 
 public class Startup
 {
@@ -31,7 +34,8 @@ public class Startup
         AddHttpClient(services)
        .AddDatabase(services)
        .AddRepositories(services)
-       .AddServices(services);
+       .AddServices(services)
+       .AddMediatRServices(services);
     }
 
     private Startup AddHttpClient(IServiceCollection service)
@@ -78,6 +82,14 @@ public class Startup
         service.AddTransient<IPortfolioFacade, PortfolioFacade>();
 
         service.AddTransient<LogBuilder>();
+        return this;
+    }
+
+    private Startup AddMediatRServices(IServiceCollection services)
+    {
+        services.AddMediatR(typeof(Queries.GetAllBanks.GetAllBanksNameQuery).Assembly);
+        services.AddScoped<GetAllBanksNameQueryHandler>();
+
         return this;
     }
 }

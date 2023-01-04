@@ -1,11 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <ProjectReference Include="..\PortfolioAnalyzer.Application\PortfolioAnalyzer.Application.csproj" />
     <ProjectReference Include="..\PortfolioAnalyzer.Services\PortfolioAnalyzer.Services.csproj" />
     <ProjectReference Include="..\PortfolioAnalyzer.Repository\PortfolioAnalyzer.Repository.csproj" />
     <ProjectReference Include="..\PortfolioAnalyzer.Core\PortfolioAnalyzer.Core.csproj" />
     <ProjectReference Include="..\PortfolioAnalyzer.Infrastructure\PortfolioAnalyzer.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />

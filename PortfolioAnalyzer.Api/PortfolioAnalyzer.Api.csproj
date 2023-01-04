@@ -14,6 +14,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PortfolioAnalyzer.Application\PortfolioAnalyzer.Application.csproj" />
     <ProjectReference Include="..\PortfolioAnalyzer.Repository\PortfolioAnalyzer.Repository.csproj" />
     <ProjectReference Include="..\PortfolioAnalyzer.Services\PortfolioAnalyzer.Services.csproj" />
     <ProjectReference Include="..\PortfolioAnalyzer.Infrastructure\PortfolioAnalyzer.Infrastructure.csproj" />

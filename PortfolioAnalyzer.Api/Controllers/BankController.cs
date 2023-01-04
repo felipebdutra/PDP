@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using PortfolioAnalyzer.Application.Queries.GetAllBanks;
 using PortfolioAnalyzer.Core.BankAggregate;
 using PortfolioAnalyzer.Repository.Bank;
 using PortfolioAnalyzer.Services.Bank;
@@ -13,14 +15,26 @@ namespace PortfolioAnalyzer.Api.Controllers
     [Route("api/[controller]")]
     public class BankController : ControllerBase
     {
-        public IBankService _bankService { get; set; }
-        public IBankRepository _bankRepository { get; set; }
+        private readonly IMediator _mediator;
+        public readonly IBankService _bankService;
+        public readonly IBankRepository _bankRepository;
 
-        public BankController(IBankService bankService, IBankRepository bankRepository)
+        public BankController(IBankService bankService, IBankRepository bankRepository, IMediator mediator)
         {
             _bankService = bankService;
             _bankRepository = bankRepository;
+            _mediator = mediator;
         }
+
+        [HttpGet]
+        [Route("GetAllBanks")]
+        public async Task<IEnumerable<GetAllBanksDto>> GetAllBanks(string except) 
+        {
+            var response = await _mediator.Send(new GetAllBanksNameQuery{ Except = except });
+
+            return response;
+        }
+
 
         [HttpGet]
         public async Task<IEnumerable<Bank>> GetAll() => await _bankRepository.FindAsync();

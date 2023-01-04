@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace PortfolioAnalyzer.Application.Queries.GetAllBanks
 {
-    public class GetAllBanksNameQuery
+    public class GetAllBanksNameQuery : IRequest<IEnumerable<GetAllBanksDto>>
     {
-        public string Name { get; set; }
+        public string Except { get; set; }
     }
 }

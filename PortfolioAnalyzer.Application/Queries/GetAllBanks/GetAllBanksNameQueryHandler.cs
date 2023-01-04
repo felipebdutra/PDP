@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MediatR;
+using MongoDB.Driver;
 using PortfolioAnalyzer.Application.Interfaces;
 using PortfolioAnalyzer.Core.BankAggregate;
 using PortfolioAnalyzer.Repository.Bank;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PortfolioAnalyzer.Application.Queries.GetAllBanks
 {
-    public class GetAllBanksNameQueryHandler
+    public class GetAllBanksNameQueryHandler : IRequestHandler<GetAllBanksNameQuery, IEnumerable<GetAllBanksDto>>
     {
         private readonly IBankRepository _bankRepository;
         public GetAllBanksNameQueryHandler(IBankRepository bankRepository)
@@ -18,14 +19,14 @@ namespace PortfolioAnalyzer.Application.Queries.GetAllBanks
             _bankRepository = bankRepository;
         }
 
-        public async Task<IEnumerable<GetAllBanksDto>> Handle(GetAllBanksNameQuery getAllBanksNameQuery)
+        public async Task<IEnumerable<GetAllBanksDto>> Handle(GetAllBanksNameQuery getAllBanksNameQuery, CancellationToken cancellationToken)
         {
-            var filter = Builders<Bank>.Filter.Where(n => n.Name != getAllBanksNameQuery.Name);
+            var filter = Builders<Bank>.Filter.Where(n => n.Name != getAllBanksNameQuery.Except);
 
             var filterDefinition = new FindOptions<Bank>()
             {
                 Projection = Builders<Bank>.Projection.Include(s => s.Name)
-                                                        .Exclude(s => s.Accounts)
+                                                       // .Exclude(s => s.Accounts)
                                                         .Exclude("_id")
 
             };
@@ -41,6 +42,5 @@ namespace PortfolioAnalyzer.Application.Queries.GetAllBanks
 
             return response;
         }
-
     }
 }
