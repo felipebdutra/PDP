@@ -11,13 +11,13 @@ namespace PortfolioAnalyzer.Infrastructure.Repository
             _collection = database.GetCollection<T>(collectionName);
         }
 
-        public async Task<IEnumerable<T>> FindAsync(FilterDefinition<T> filter = null)
+        public async Task<IEnumerable<T>> FindAsync(FilterDefinition<T> filter = null, FindOptions<T> options = null)
         {
             filter ??= Builders<T>.Filter.Empty;
 
             var result = new List<T>();
 
-            using (var cursor = await _collection.FindAsync<T>(filter))
+            using (var cursor = await _collection.FindAsync<T>(filter, options))
             {
                 while (await cursor.MoveNextAsync())
                 {
@@ -33,6 +33,11 @@ namespace PortfolioAnalyzer.Infrastructure.Repository
             filter ??= Builders<T>.Filter.Empty;
 
             return _collection.Find(filter, options).ToList();
+        }
+
+        public async Task InsertAsync(T entity)
+        {
+            await _collection.InsertOneAsync(entity);
         }
 
         public void Insert(T entity)
