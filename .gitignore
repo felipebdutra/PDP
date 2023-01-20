@@ -26,3 +26,15 @@
 /PortfolioAnalyzer.Api/obj
 /PortfolioAnalyzer.Application/obj
 /PortfolioAnalyzer.Application/bin/Debug/net6.0
+/PortfolioAnalyzer.UnitTest/obj/Debug/net6.0/PortfolioAnalyzer.UnitTest.assets.cache
+/PortfolioAnalyzer.UnitTest/obj/Debug/net6.0/PortfolioAnalyzer.UnitTest.csproj.AssemblyReference.cache
+/PortfolioAnalyzer.UnitTest/obj/Debug/net6.0/PortfolioAnalyzer.UnitTest.GeneratedMSBuildEditorConfig.editorconfig
+*.cs
+/PortfolioAnalyzer.UnitTest/obj/Release/net6.0/PortfolioAnalyzer.UnitTest.GeneratedMSBuildEditorConfig.editorconfig
+/PortfolioAnalyzer.UnitTest/obj/Release/net6.0/PortfolioAnalyzer.UnitTest.csproj.AssemblyReference.cache
+/PortfolioAnalyzer.UnitTest/obj/Release/net6.0/PortfolioAnalyzer.UnitTest.assets.cache
+/PortfolioAnalyzer.UnitTest/obj/Release/net6.0/PortfolioAnalyzer.UnitTest.AssemblyInfoInputs.cache
+/PortfolioAnalyzer.UnitTest/obj/project.nuget.cache
+/PortfolioAnalyzer.UnitTest/obj/project.assets.json
+/PortfolioAnalyzer.UnitTest/obj/PortfolioAnalyzer.UnitTest.csproj.nuget.g.props
+/PortfolioAnalyzer.UnitTest/obj/PortfolioAnalyzer.UnitTest.csproj.nuget.dgspec.json

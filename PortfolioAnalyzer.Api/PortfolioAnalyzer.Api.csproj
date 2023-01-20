@@ -4,6 +4,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <OutputType>Exe</OutputType>
+    <UserSecretsId>276469c6-7921-43d3-a959-c60e1600286b</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="..\PortfolioAnalyzer.Infrastructure.CompositionRoot\appbasesettings.json" Link="appbasesettings.json">

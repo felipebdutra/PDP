@@ -1,11 +1,12 @@
-﻿using MongoDB.Driver;
+﻿using MediatR;
+using MongoDB.Driver;
 using PortfolioAnalyzer.Application.Interfaces;
 using PortfolioAnalyzer.Core.BankAggregate;
 using PortfolioAnalyzer.Repository.Bank;
 
 namespace PortfolioAnalyzer.Application.Commands.AddNewBank
 {
-    public class AddNewBankCommandHandler : ICommandHandler<AddNewBankCommand>
+    public class AddNewBankCommandHandler : IRequestHandler<AddNewBankCommand>//, ICommandHandler<AddNewBankCommand>
     {
         private readonly IBankRepository _bankRepository;
         private readonly AddNewBankValidator _validator;
@@ -16,11 +17,11 @@ namespace PortfolioAnalyzer.Application.Commands.AddNewBank
             _validator = validator;
         }
 
-        public async Task Handle(AddNewBankCommand command)
+        public async Task<Unit> Handle(AddNewBankCommand command, CancellationToken cancellationToken)
         {
             bool isValid = await _validator.IsValid(command);
 
-            if (!isValid) return;
+            if (!isValid) return new Unit();
 
             var bank = new Bank()
             {
@@ -29,6 +30,8 @@ namespace PortfolioAnalyzer.Application.Commands.AddNewBank
             };
 
             await _bankRepository.InsertAsync(bank);
+            return new Unit();
         }
+
     }
 }

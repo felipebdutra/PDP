@@ -24,7 +24,7 @@ namespace PortfolioAnalyzer.Application.Commands.AddNewBank
 
             var result = await _bankRepository.FindAsync(filter);
 
-            if (result == null || !result.Any())
+            if (result != null && result.Any())
                 return false;
 
             return true;

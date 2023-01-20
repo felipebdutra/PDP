@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using PortfolioAnalyzer.Application.Commands.AddNewBank;
 using PortfolioAnalyzer.Application.Queries.GetAllBanks;
 using PortfolioAnalyzer.Core.BankAggregate;
 using PortfolioAnalyzer.Repository.Bank;
@@ -27,7 +28,7 @@ namespace PortfolioAnalyzer.Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllBanks")]
+        //[Route("GetAllBanks")]
         public async Task<IEnumerable<GetAllBanksDto>> GetAllBanks(string except) 
         {
             var response = await _mediator.Send(new GetAllBanksNameQuery{ Except = except });
@@ -36,7 +37,14 @@ namespace PortfolioAnalyzer.Api.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IEnumerable<Bank>> GetAll() => await _bankRepository.FindAsync();
+        [HttpPost]
+        public async void AddBank(string name)
+        {
+            await _mediator.Send(new AddNewBankCommand() { Name = name });
+        }
+
+
+        //[HttpGet]
+        //public async Task<IEnumerable<Bank>> GetAll() => await _bankRepository.FindAsync();
     }
 }

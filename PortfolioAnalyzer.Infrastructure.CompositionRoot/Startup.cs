@@ -17,6 +17,7 @@ using PortfolioAnalyzer.Services.Portfolio;
 using MediatR;
 using Queries = PortfolioAnalyzer.Application.Queries;
 using PortfolioAnalyzer.Application.Queries.GetAllBanks;
+using PortfolioAnalyzer.Application.Commands.AddNewBank;
 
 public class Startup
 {
@@ -89,6 +90,11 @@ public class Startup
     {
         services.AddMediatR(typeof(Queries.GetAllBanks.GetAllBanksNameQuery).Assembly);
         services.AddScoped<GetAllBanksNameQueryHandler>();
+        services.AddScoped<AddNewBankCommandHandler>();
+        services.AddScoped<AddNewBankValidator>();
+        //services.AddScoped(typeof(IBankRepository), typeof(BankRepository));
+
+
 
         return this;
     }
