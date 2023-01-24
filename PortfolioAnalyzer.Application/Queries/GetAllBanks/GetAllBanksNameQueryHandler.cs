@@ -1,13 +1,7 @@
 ﻿using MediatR;
 using MongoDB.Driver;
-using PortfolioAnalyzer.Application.Interfaces;
 using PortfolioAnalyzer.Core.BankAggregate;
 using PortfolioAnalyzer.Repository.Bank;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PortfolioAnalyzer.Application.Queries.GetAllBanks
 {
@@ -25,10 +19,7 @@ namespace PortfolioAnalyzer.Application.Queries.GetAllBanks
 
             var filterDefinition = new FindOptions<Bank>()
             {
-                Projection = Builders<Bank>.Projection.Include(s => s.Name)
-                                                       // .Exclude(s => s.Accounts)
-                                                        .Exclude("_id")
-
+                Projection = Builders<Bank>.Projection.Include(s => s.Name).Exclude("_id")
             };
 
             var banks = await _bankRepository.FindAsync(filter, filterDefinition);

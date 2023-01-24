@@ -90,11 +90,12 @@ public class Startup
     {
         services.AddMediatR(typeof(Queries.GetAllBanks.GetAllBanksNameQuery).Assembly);
         services.AddScoped<GetAllBanksNameQueryHandler>();
-        services.AddScoped<AddNewBankCommandHandler>();
-        services.AddScoped<AddNewBankValidator>();
-        //services.AddScoped(typeof(IBankRepository), typeof(BankRepository));
 
+        services.AddScoped<AddBankCommandHandler>();
+        services.AddScoped<AddBankValidator>();
 
+        services.AddScoped<AddBankAccontCommandHandler>();
+        services.AddScoped<AddBankAccountValidator>();
 
         return this;
     }

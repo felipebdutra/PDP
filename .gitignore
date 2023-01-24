@@ -38,3 +38,5 @@
 /PortfolioAnalyzer.UnitTest/obj/project.assets.json
 /PortfolioAnalyzer.UnitTest/obj/PortfolioAnalyzer.UnitTest.csproj.nuget.g.props
 /PortfolioAnalyzer.UnitTest/obj/PortfolioAnalyzer.UnitTest.csproj.nuget.dgspec.json
+/PortfolioAnalyzer.UnitTest/bin/Debug/net6.0
+/PortfolioAnalyzer.UnitTest/obj/Debug/net6.0

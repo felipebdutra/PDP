@@ -14,6 +14,15 @@ namespace PortfolioAnalyzer.Repository.Bank
         {
         }
 
+        public async Task AddBankAccount(BankAccount account, string bank)
+        {
+            var filter = Builders<Core.BankAggregate.Bank>.Filter.Where(f => f.Name == bank);
+
+            var update = Builders<Core.BankAggregate.Bank>.Update.Push(f => f.Accounts, account);
+
+            var bankEntity = await _collection.UpdateOneAsync(filter, update);
+        }
+
         public async Task<IList<BankAccount>> GetAllAccountsAsync()
         {
             var accounts = new List<BankAccount>();

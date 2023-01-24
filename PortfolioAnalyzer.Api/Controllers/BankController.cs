@@ -28,7 +28,6 @@ namespace PortfolioAnalyzer.Api.Controllers
         }
 
         [HttpGet]
-        //[Route("GetAllBanks")]
         public async Task<IEnumerable<GetAllBanksDto>> GetAllBanks(string except) 
         {
             var response = await _mediator.Send(new GetAllBanksNameQuery{ Except = except });
@@ -38,13 +37,18 @@ namespace PortfolioAnalyzer.Api.Controllers
 
 
         [HttpPost]
-        public async void AddBank(string name)
+        [Route("AddBank")]
+        public async Task AddBank(string name)
         {
-            await _mediator.Send(new AddNewBankCommand() { Name = name });
+            await _mediator.Send(new AddBankCommand() { Name = name });
         }
 
+        [HttpPost]
+        [Route("AddBankAccount")]
+        public async Task AddBankAccount(string bankName, string currency, decimal amount)
+        {
+            await _mediator.Send(new AddBankAccountCommand() { BankName = bankName, Currency = currency, Amount = amount });
+        }
 
-        //[HttpGet]
-        //public async Task<IEnumerable<Bank>> GetAll() => await _bankRepository.FindAsync();
     }
 }
