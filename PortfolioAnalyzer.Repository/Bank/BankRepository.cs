@@ -4,7 +4,7 @@ using PortfolioAnalyzer.Infrastructure.Repository;
 
 namespace PortfolioAnalyzer.Repository.Bank
 {
-    public class BankRepository : RepositoryBase<Core.BankAggregate.Bank>, IBankRepository
+    public class BankRepository : RepositoryBase<Core.BankAggregate.Bank>, IPortfolioRepository
     {
         public BankRepository(IMongoDatabase database)
             : base(

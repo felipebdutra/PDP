@@ -1,4 +1,9 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using PortfolioAnalyzer.Application.Commands.AddNewPortfolio;
+using PortfolioAnalyzer.Application.Commands.DeleteNewPortfolio;
+using PortfolioAnalyzer.Application.Commands.UpdatePortfolio;
+using PortfolioAnalyzer.Application.Queries.GetAllBanks;
 using PortfolioAnalyzer.Core.PortfolioAggregate;
 using PortfolioAnalyzer.Repository.Portfolio;
 
@@ -8,16 +13,41 @@ namespace PortfolioAnalyzer.Api.Controllers
     [Route("api/[controller]")]
     public class PortfolioController : ControllerBase
     {
-        public IPortfolioService _PortfolioService { get; set; }
-        public IPortfolioRepository _PortfolioRepository { get; set; }
+        private IPortfolioService _PortfolioService { get; set; }
+        private IPortfolioRepository _PortfolioRepository { get; set; }
+        private readonly IMediator _mediator;
 
-        public PortfolioController(IPortfolioService PortfolioService, IPortfolioRepository PortfolioRepository)
+
+        public PortfolioController(IPortfolioService PortfolioService, IPortfolioRepository PortfolioRepository, IMediator mediator)
         {
             _PortfolioService = PortfolioService;
             _PortfolioRepository = PortfolioRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Portfolio>> GetAll() => await _PortfolioRepository.GetAllPortoliosAsync();
+        public async Task<IEnumerable<Portfolio>> GetAll()
+        {
+            return await _mediator.Send(new GetPortfolioQuery());
+        }
+
+        [HttpPost]
+        public async Task<Unit> AddPortfolio(AddPortfolioCommand addPortfolioDto)
+        {
+            return await _mediator.Send(addPortfolioDto);
+        }
+
+        [HttpDelete]
+        public async Task<Unit> DeletePortfolio(string broker)
+        {
+            return await _mediator.Send(new DeletePortfolioCommand() { Broker = broker});
+        }
+
+
+        [HttpPatch]
+        public async Task<Unit> UpdatePortfolio(UpdatePortfolioCommand command)
+        {
+            return await _mediator.Send(command);
+        }
     }
 }

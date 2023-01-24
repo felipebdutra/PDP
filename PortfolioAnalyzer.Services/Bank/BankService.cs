@@ -9,11 +9,11 @@ namespace PortfolioAnalyzer.Services.Bank
 {
     public class BankService : IBankService
     {
-        private IBankRepository _bankRepository;
+        private IPortfolioRepository _bankRepository;
         private ICurrencyConvertionService _currencyConvertion;
 
         public BankService(
-            IBankRepository bankRepository,
+            IPortfolioRepository bankRepository,
             ICurrencyConvertionService currencyConvertion
         )
         {

@@ -54,9 +54,23 @@ namespace PortfolioAnalyzer.Infrastructure.Repository
             return _collection.UpdateOne(filter, update);
         }
 
+        public async Task<UpdateResult> UpdateAsync(
+          FilterDefinition<T> filter,
+          UpdateDefinition<T> update,
+          UpdateOptions options = null
+      )
+        {
+            return await _collection.UpdateOneAsync(filter, update, options);
+        }
+
         public DeleteResult Delete(FilterDefinition<T> filter)
         {
             return _collection.DeleteOne(filter);
+        }
+
+        public async Task<DeleteResult>DeleteAsync(FilterDefinition<T> filter)
+        {
+            return await _collection.DeleteOneAsync(filter);
         }
     }
 }

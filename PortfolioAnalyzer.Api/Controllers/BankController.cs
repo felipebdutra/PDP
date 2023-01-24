@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using PortfolioAnalyzer.Application.Commands.AddNewBank;
 using PortfolioAnalyzer.Application.Queries.GetAllBanks;
 using PortfolioAnalyzer.Core.BankAggregate;
+using PortfolioAnalyzer.Core.PortfolioAggregate;
 using PortfolioAnalyzer.Repository.Bank;
 using PortfolioAnalyzer.Services.Bank;
 
@@ -18,9 +19,9 @@ namespace PortfolioAnalyzer.Api.Controllers
     {
         private readonly IMediator _mediator;
         public readonly IBankService _bankService;
-        public readonly IBankRepository _bankRepository;
+        public readonly IPortfolioRepository _bankRepository;
 
-        public BankController(IBankService bankService, IBankRepository bankRepository, IMediator mediator)
+        public BankController(IBankService bankService, IPortfolioRepository bankRepository, IMediator mediator)
         {
             _bankService = bankService;
             _bankRepository = bankRepository;
@@ -28,9 +29,9 @@ namespace PortfolioAnalyzer.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<GetAllBanksDto>> GetAllBanks(string except) 
+        public async Task<IEnumerable<Portfolio>> GetAllBanks(string except) 
         {
-            var response = await _mediator.Send(new GetAllBanksNameQuery{ Except = except });
+            var response = await _mediator.Send(new GetPortfolioQuery{ Name = except });
 
             return response;
         }

@@ -18,6 +18,9 @@ using MediatR;
 using Queries = PortfolioAnalyzer.Application.Queries;
 using PortfolioAnalyzer.Application.Queries.GetAllBanks;
 using PortfolioAnalyzer.Application.Commands.AddNewBank;
+using PortfolioAnalyzer.Application.Commands.AddNewPortfolio;
+using PortfolioAnalyzer.Application.Commands.DeleteNewPortfolio;
+using PortfolioAnalyzer.Application.Commands.UpdatePortfolio;
 
 public class Startup
 {
@@ -64,9 +67,9 @@ public class Startup
 
     private Startup AddRepositories(IServiceCollection service)
     {
-        service.AddScoped<IPortfolioRepository, PortfolioRepository>();
+        service.AddScoped<PortfolioAnalyzer.Repository.Portfolio.IPortfolioRepository, PortfolioRepository>();
         service.AddScoped<IStockPricesHistoryRepository, StockPricesHistoryRepository>();
-        service.AddScoped<IBankRepository, BankRepository>();
+        service.AddScoped<PortfolioAnalyzer.Repository.Bank.IPortfolioRepository, BankRepository>();
 
         return this;
     }
@@ -88,14 +91,23 @@ public class Startup
 
     private Startup AddMediatRServices(IServiceCollection services)
     {
-        services.AddMediatR(typeof(Queries.GetAllBanks.GetAllBanksNameQuery).Assembly);
-        services.AddScoped<GetAllBanksNameQueryHandler>();
+        services.AddMediatR(typeof(Queries.GetAllBanks.GetPortfolioQuery).Assembly);
+        services.AddScoped<GetPortfolioQueryHandler>();
 
         services.AddScoped<AddBankCommandHandler>();
         services.AddScoped<AddBankValidator>();
 
         services.AddScoped<AddBankAccontCommandHandler>();
         services.AddScoped<AddBankAccountValidator>();
+
+        services.AddScoped<AddPortfolioCommandHandler>();
+        services.AddScoped<AddPortfolioValidator>();
+
+        services.AddScoped<DeletePortfolioCommandHandler>();
+        services.AddScoped<DeletePortfolioValidator>();
+
+        services.AddScoped<UpdatePortfolioCommandHandler>();
+        services.AddScoped<UpdatePortfolioValidator>();
 
         return this;
     }

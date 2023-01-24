@@ -11,7 +11,8 @@ namespace PortfolioAnalyzer.Infrastructure.Repository
         Task InsertAsync(T entity);
 
         UpdateResult Update(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options);
-
+        Task<UpdateResult> UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> update, UpdateOptions options);
         DeleteResult Delete(FilterDefinition<T> filter);
+        Task<DeleteResult> DeleteAsync(FilterDefinition<T> filter);
     }
 }
