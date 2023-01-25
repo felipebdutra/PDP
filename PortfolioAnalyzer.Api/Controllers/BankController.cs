@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PortfolioAnalyzer.Application.Commands.AddNewBank;
+using PortfolioAnalyzer.Application.Commands.AddBank;
+using PortfolioAnalyzer.Application.Commands.AddBankAccount;
 using PortfolioAnalyzer.Application.Queries.GetAllBanks;
-using PortfolioAnalyzer.Core.BankAggregate;
+using PortfolioAnalyzer.Application.Queries.GetPortfolios;
 using PortfolioAnalyzer.Core.PortfolioAggregate;
 using PortfolioAnalyzer.Repository.Bank;
 using PortfolioAnalyzer.Services.Bank;
@@ -29,9 +26,9 @@ namespace PortfolioAnalyzer.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Portfolio>> GetAllBanks(string except) 
+        public async Task<IEnumerable<GetAllBanksDto>> GetAllBanks() 
         {
-            var response = await _mediator.Send(new GetPortfolioQuery{ Name = except });
+            var response = await _mediator.Send(new GetAllBanksNameQuery());
 
             return response;
         }

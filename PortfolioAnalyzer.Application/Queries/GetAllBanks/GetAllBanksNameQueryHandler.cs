@@ -19,7 +19,7 @@ namespace PortfolioAnalyzer.Application.Queries.GetAllBanks
 
             var filterDefinition = new FindOptions<Bank>()
             {
-                Projection = Builders<Bank>.Projection.Include(s => s.Name).Exclude("_id")
+                Projection = Builders<Bank>.Projection.Include(s => s.Name).Include(s => s.Accounts).Exclude("_id")
             };
 
             var banks = await _bankRepository.FindAsync(filter, filterDefinition);
@@ -28,7 +28,10 @@ namespace PortfolioAnalyzer.Application.Queries.GetAllBanks
 
             foreach (var bank in banks)
             {
-                response.Add(new() { Name = bank.Name });
+                response.Add(new() { 
+                    Name = bank.Name,
+                    Accounts = bank.Accounts
+                });
             }
 
             return response;

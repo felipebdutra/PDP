@@ -8,6 +8,7 @@ namespace PortfolioAnalyzer.Services.Facade
 {
     public class PortfolioInfo
     {
+        public DateTime Date { get; set; }
         public decimal Total { get; set; }
         public decimal TotalCash { get; set; }
         public decimal TotalPortfolio { get; set; }

@@ -3,6 +3,7 @@ using PortfolioAnalyzer.Infrastructure.Repository;
 namespace PortfolioAnalyzer.Repository.Portfolio;
 public interface IPortfolioRepository : IRepositoryBase<Core.PortfolioAggregate.Portfolio>
 {
-    public Task<IEnumerable<string>> GetTickersAsync();
-    public Task<List<Core.PortfolioAggregate.Portfolio>> GetAllPortoliosAsync();
+    Task<IEnumerable<string>> GetTickersAsync();
+    Task<List<PortfolioDto>> GetAllPortoliosAsync();
+    Task<List<Core.PortfolioAggregate.Portfolio>> GetPortoliosAsync();
 }

@@ -13,7 +13,6 @@ namespace PortfolioAnalyzer.Infrastructure.Repository
                     public struct Collections
                     {
                         public const string Portfolio = "portfolio";
-                        public const string Position = "position";
                         public const string StockPricesHistory = "stockPricesHistory";
                         public const string Bank = "bank";
                         public const string ExecutionLog = "executionLog";

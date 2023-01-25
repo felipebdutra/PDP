@@ -17,8 +17,13 @@ public class PortfolioService : IPortfolioService
         return await _repository.GetTickersAsync();
     }
 
-    public async Task<List<Core.PortfolioAggregate.Portfolio>> GetAllPortfoliosAsync()
+    public async Task<List<PortfolioDto>> GetAllPortfoliosAsync()
     {
         return await _repository.GetAllPortoliosAsync();
+    }
+
+    public async Task<List<Core.PortfolioAggregate.Portfolio>> GetPortfoliosAsync()
+    {
+        return await _repository.GetPortoliosAsync();
     }
 }

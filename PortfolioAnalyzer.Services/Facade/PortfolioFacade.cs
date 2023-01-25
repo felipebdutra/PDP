@@ -12,6 +12,7 @@ namespace PortfolioAnalyzer.Services.Facade
         private readonly ICurrencyConvertionService _currencyService;
         private readonly IUpdateStockPriceHistoryService _updateStockPriceHistoryService;
         private readonly IPortfolioService _portfolioService;
+        private DateTime _latestExecutionDate;
 
         private List<FinancialInstrument> _instruments;
         private IList<BankAccount> _totalCash;
@@ -50,6 +51,7 @@ namespace PortfolioAnalyzer.Services.Facade
 
             _instruments = getLatestPrices.Result.Instruments;
             _totalCash = getTotalCash.Result;
+            _latestExecutionDate = getLatestPrices.Result.Date;
         }
 
         public async Task<PortfolioInfo> ProcessDataAsync()
@@ -60,6 +62,7 @@ namespace PortfolioAnalyzer.Services.Facade
 
             return new PortfolioInfo()
             {
+                Date = _latestExecutionDate,
                 Total = total + totalDollarCash,
                 TotalCash = totalDollarCash,
                 TotalPortfolio = total

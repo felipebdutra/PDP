@@ -9,7 +9,6 @@ namespace PortfolioAnalyzer.Core.BankAggregate
 {
     public class BankAccount
     {
-        public ObjectId Id { get; set; }        
         public string Currency { get; set; }
         [BsonRepresentation(BsonType.Decimal128)]
         public decimal Amount { get; set; }

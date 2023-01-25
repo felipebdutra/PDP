@@ -29,7 +29,7 @@ namespace PortfolioAnalyzer.Api.Controllers
         {
             try
             {
-                await _facade.LoadStoredDataAsync();
+               await _facade.LoadStoredDataAsync();
 
                 if (!_currencyService.IsCurrencySupported(currency))
                 {

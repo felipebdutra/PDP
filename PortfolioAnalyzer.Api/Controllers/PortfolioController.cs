@@ -1,10 +1,9 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PortfolioAnalyzer.Application.Commands.AddNewPortfolio;
-using PortfolioAnalyzer.Application.Commands.DeleteNewPortfolio;
+using PortfolioAnalyzer.Application.Commands.AddPortfolio;
+using PortfolioAnalyzer.Application.Commands.DeletePortfolio;
 using PortfolioAnalyzer.Application.Commands.UpdatePortfolio;
-using PortfolioAnalyzer.Application.Queries.GetAllBanks;
-using PortfolioAnalyzer.Core.PortfolioAggregate;
+using PortfolioAnalyzer.Application.Queries.GetPortfolios;
 using PortfolioAnalyzer.Repository.Portfolio;
 
 namespace PortfolioAnalyzer.Api.Controllers
@@ -26,7 +25,7 @@ namespace PortfolioAnalyzer.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Portfolio>> GetAll()
+        public async Task<IEnumerable<PortfolioDto>> GetAll()
         {
             return await _mediator.Send(new GetPortfolioQuery());
         }

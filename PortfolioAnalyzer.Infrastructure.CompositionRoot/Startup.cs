@@ -16,11 +16,12 @@ using PortfolioAnalyzer.Services.History;
 using PortfolioAnalyzer.Services.Portfolio;
 using MediatR;
 using Queries = PortfolioAnalyzer.Application.Queries;
-using PortfolioAnalyzer.Application.Queries.GetAllBanks;
-using PortfolioAnalyzer.Application.Commands.AddNewBank;
-using PortfolioAnalyzer.Application.Commands.AddNewPortfolio;
-using PortfolioAnalyzer.Application.Commands.DeleteNewPortfolio;
 using PortfolioAnalyzer.Application.Commands.UpdatePortfolio;
+using PortfolioAnalyzer.Application.Commands.AddBank;
+using PortfolioAnalyzer.Application.Commands.DeletePortfolio;
+using PortfolioAnalyzer.Application.Queries.GetPortfolios;
+using PortfolioAnalyzer.Application.Commands.AddPortfolio;
+using PortfolioAnalyzer.Application.Commands.AddBankAccount;
 
 public class Startup
 {
@@ -91,7 +92,7 @@ public class Startup
 
     private Startup AddMediatRServices(IServiceCollection services)
     {
-        services.AddMediatR(typeof(Queries.GetAllBanks.GetPortfolioQuery).Assembly);
+        services.AddMediatR(typeof(GetPortfolioQuery).Assembly);
         services.AddScoped<GetPortfolioQueryHandler>();
 
         services.AddScoped<AddBankCommandHandler>();

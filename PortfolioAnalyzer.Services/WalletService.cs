@@ -20,7 +20,7 @@ public class WalletService
 
     public async Task<decimal> TotalPortfolioValue(List<FinancialInstrument> instrumentsPrice)
     {
-        var portfolios = await _portfolioService.GetAllPortfoliosAsync();
+        var portfolios = await _portfolioService.GetPortfoliosAsync();
 
         portfolios.ForEach(f => f.SetPrices(instrumentsPrice));
 
