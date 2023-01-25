@@ -2,6 +2,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PortfolioAnalyzer.Application.Commands.AddBank;
 using PortfolioAnalyzer.Application.Commands.AddBankAccount;
+using PortfolioAnalyzer.Application.Commands.DeleteBank;
+using PortfolioAnalyzer.Application.Commands.UpdateBankAccountAmount;
 using PortfolioAnalyzer.Application.Queries.GetAllBanks;
 using PortfolioAnalyzer.Application.Queries.GetPortfolios;
 using PortfolioAnalyzer.Core.PortfolioAggregate;
@@ -16,9 +18,9 @@ namespace PortfolioAnalyzer.Api.Controllers
     {
         private readonly IMediator _mediator;
         public readonly IBankService _bankService;
-        public readonly IPortfolioRepository _bankRepository;
+        public readonly IBankRepository _bankRepository;
 
-        public BankController(IBankService bankService, IPortfolioRepository bankRepository, IMediator mediator)
+        public BankController(IBankService bankService, IBankRepository bankRepository, IMediator mediator)
         {
             _bankService = bankService;
             _bankRepository = bankRepository;
@@ -41,6 +43,14 @@ namespace PortfolioAnalyzer.Api.Controllers
             await _mediator.Send(new AddBankCommand() { Name = name });
         }
 
+
+        [HttpDelete]
+        [Route("DeleteBank")]
+        public async Task DeleteBank(string name)
+        {
+            await _mediator.Send(new DeleteBankCommand() { Name = name });
+        }
+
         [HttpPost]
         [Route("AddBankAccount")]
         public async Task AddBankAccount(string bankName, string currency, decimal amount)
@@ -48,5 +58,11 @@ namespace PortfolioAnalyzer.Api.Controllers
             await _mediator.Send(new AddBankAccountCommand() { BankName = bankName, Currency = currency, Amount = amount });
         }
 
+        [HttpPut]
+        [Route("UpdateBankAccountAmount")]
+        public async Task UpdateBankAccountAmount(string bankName, string currency, decimal amount)
+        {
+            await _mediator.Send(new UpdateBankAccountAmountCommand() { BankName = bankName, Currency = currency, Amount = amount });
+        }
     }
 }

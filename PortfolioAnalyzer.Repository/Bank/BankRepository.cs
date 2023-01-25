@@ -4,7 +4,7 @@ using PortfolioAnalyzer.Infrastructure.Repository;
 
 namespace PortfolioAnalyzer.Repository.Bank
 {
-    public class BankRepository : RepositoryBase<Core.BankAggregate.Bank>, IPortfolioRepository
+    public class BankRepository : RepositoryBase<Core.BankAggregate.Bank>, IBankRepository
     {
         public BankRepository(IMongoDatabase database)
             : base(
@@ -21,6 +21,19 @@ namespace PortfolioAnalyzer.Repository.Bank
             var update = Builders<Core.BankAggregate.Bank>.Update.Push(f => f.Accounts, account);
 
             var bankEntity = await _collection.UpdateOneAsync(filter, update);
+        }
+
+        public async Task UpdateBankAccountAmount(string bankName, string currency, decimal amount)
+        {
+            var filter = Builders<Core.BankAggregate.Bank>.Filter;
+            
+            var updateFilter = filter.And(
+                filter.Eq(f => f.Name, bankName),
+                filter.ElemMatch(f => f.Accounts, d => d.Currency == currency));
+
+            var update = Builders<Core.BankAggregate.Bank>.Update.Set("Accounts.$.Amount", amount);
+
+            var bankEntity = await _collection.UpdateOneAsync(updateFilter, update);
         }
 
         public async Task<IList<BankAccount>> GetAllAccountsAsync()

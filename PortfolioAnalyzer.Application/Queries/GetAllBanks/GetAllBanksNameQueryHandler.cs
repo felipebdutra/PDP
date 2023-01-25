@@ -7,8 +7,8 @@ namespace PortfolioAnalyzer.Application.Queries.GetAllBanks
 {
     public class GetAllBanksNameQueryHandler : IRequestHandler<GetAllBanksNameQuery, IEnumerable<GetAllBanksDto>>
     {
-        private readonly IPortfolioRepository _bankRepository;
-        public GetAllBanksNameQueryHandler(IPortfolioRepository bankRepository)
+        private readonly IBankRepository _bankRepository;
+        public GetAllBanksNameQueryHandler(IBankRepository bankRepository)
         {
             _bankRepository = bankRepository;
         }

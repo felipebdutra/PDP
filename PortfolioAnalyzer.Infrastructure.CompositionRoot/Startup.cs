@@ -1,6 +1,15 @@
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
+using PortfolioAnalyzer.Application.Commands.AddBank;
+using PortfolioAnalyzer.Application.Commands.AddBankAccount;
+using PortfolioAnalyzer.Application.Commands.AddPortfolio;
+using PortfolioAnalyzer.Application.Commands.DeleteBank;
+using PortfolioAnalyzer.Application.Commands.DeletePortfolio;
+using PortfolioAnalyzer.Application.Commands.UpdateBankAccountAmount;
+using PortfolioAnalyzer.Application.Commands.UpdatePortfolio;
+using PortfolioAnalyzer.Application.Queries.GetPortfolios;
 using PortfolioAnalyzer.Infrastructure.Database;
 using PortfolioAnalyzer.Infrastructure.Integration.Api;
 using PortfolioAnalyzer.Infrastructure.Integration.Api.Alphavantage;
@@ -14,14 +23,6 @@ using PortfolioAnalyzer.Services.Bank;
 using PortfolioAnalyzer.Services.Facade;
 using PortfolioAnalyzer.Services.History;
 using PortfolioAnalyzer.Services.Portfolio;
-using MediatR;
-using Queries = PortfolioAnalyzer.Application.Queries;
-using PortfolioAnalyzer.Application.Commands.UpdatePortfolio;
-using PortfolioAnalyzer.Application.Commands.AddBank;
-using PortfolioAnalyzer.Application.Commands.DeletePortfolio;
-using PortfolioAnalyzer.Application.Queries.GetPortfolios;
-using PortfolioAnalyzer.Application.Commands.AddPortfolio;
-using PortfolioAnalyzer.Application.Commands.AddBankAccount;
 
 public class Startup
 {
@@ -70,7 +71,7 @@ public class Startup
     {
         service.AddScoped<PortfolioAnalyzer.Repository.Portfolio.IPortfolioRepository, PortfolioRepository>();
         service.AddScoped<IStockPricesHistoryRepository, StockPricesHistoryRepository>();
-        service.AddScoped<PortfolioAnalyzer.Repository.Bank.IPortfolioRepository, BankRepository>();
+        service.AddScoped<PortfolioAnalyzer.Repository.Bank.IBankRepository, BankRepository>();
 
         return this;
     }
@@ -101,6 +102,9 @@ public class Startup
         services.AddScoped<AddBankAccontCommandHandler>();
         services.AddScoped<AddBankAccountValidator>();
 
+        services.AddScoped<DeleteBankCommandHandler>();
+        services.AddScoped<DeleteBankValidator>();
+
         services.AddScoped<AddPortfolioCommandHandler>();
         services.AddScoped<AddPortfolioValidator>();
 
@@ -108,7 +112,10 @@ public class Startup
         services.AddScoped<DeletePortfolioValidator>();
 
         services.AddScoped<UpdatePortfolioCommandHandler>();
-        services.AddScoped<UpdatePortfolioValidator>();
+        services.AddScoped<UpdatePortfolioValidator>();  
+        
+        services.AddScoped<UpdateBankAccountAmountCommandHandler>();
+        services.AddScoped<UpdateBankAccountAmountValidator>();
 
         return this;
     }
