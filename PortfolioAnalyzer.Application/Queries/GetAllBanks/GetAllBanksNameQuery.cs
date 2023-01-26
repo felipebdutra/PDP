@@ -9,6 +9,5 @@ namespace PortfolioAnalyzer.Application.Queries.GetAllBanks
 {
     public class GetAllBanksNameQuery : IRequest<IEnumerable<GetAllBanksDto>>
     {
-        public string Except { get; set; }
     }
 }

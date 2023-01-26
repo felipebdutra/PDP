@@ -37,9 +37,9 @@ namespace PortfolioAnalyzer.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<Unit> DeletePortfolio(string broker)
+        public async Task<Unit> DeletePortfolio(DeletePortfolioCommand command)
         {
-            return await _mediator.Send(new DeletePortfolioCommand() { Broker = broker});
+            return await _mediator.Send(command);
         }
 
 

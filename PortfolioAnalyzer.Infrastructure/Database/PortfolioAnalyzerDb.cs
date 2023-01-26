@@ -7,8 +7,7 @@ namespace PortfolioAnalyzer.Infrastructure.Database
     {
         public IMongoDatabase GetDatabase(IConfiguration configuration, string name)
         {
-            return new MongoClient(configuration["MongoDb_ConnectionString"]).GetDatabase(name);
-                
+            return new MongoClient(configuration["MongoDb_ConnectionString"]).GetDatabase(name);                
         }
     }
 }

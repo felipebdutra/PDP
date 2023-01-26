@@ -30,39 +30,37 @@ namespace PortfolioAnalyzer.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<GetAllBanksDto>> GetAllBanks() 
         {
-            var response = await _mediator.Send(new GetAllBanksNameQuery());
-
-            return response;
+            return await _mediator.Send(new GetAllBanksNameQuery());
         }
 
 
         [HttpPost]
         [Route("AddBank")]
-        public async Task AddBank(string name)
-        {
-            await _mediator.Send(new AddBankCommand() { Name = name });
+        public async Task AddBank(AddBankCommand bankCommand)
+        {            
+            await _mediator.Send(bankCommand);
         }
 
 
         [HttpDelete]
         [Route("DeleteBank")]
-        public async Task DeleteBank(string name)
+        public async Task DeleteBank(DeleteBankCommand command)
         {
-            await _mediator.Send(new DeleteBankCommand() { Name = name });
+            await _mediator.Send(command);
         }
 
         [HttpPost]
         [Route("AddBankAccount")]
-        public async Task AddBankAccount(string bankName, string currency, decimal amount)
+        public async Task AddBankAccount(AddBankAccountCommand command)
         {
-            await _mediator.Send(new AddBankAccountCommand() { BankName = bankName, Currency = currency, Amount = amount });
+            await _mediator.Send(command);
         }
 
         [HttpPut]
         [Route("UpdateBankAccountAmount")]
-        public async Task UpdateBankAccountAmount(string bankName, string currency, decimal amount)
+        public async Task UpdateBankAccountAmount(UpdateBankAccountAmountCommand command)
         {
-            await _mediator.Send(new UpdateBankAccountAmountCommand() { BankName = bankName, Currency = currency, Amount = amount });
+            await _mediator.Send(command);        
         }
     }
 }

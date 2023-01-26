@@ -15,14 +15,12 @@ namespace PortfolioAnalyzer.Application.Queries.GetAllBanks
 
         public async Task<IEnumerable<GetAllBanksDto>> Handle(GetAllBanksNameQuery getAllBanksNameQuery, CancellationToken cancellationToken)
         {
-            var filter = Builders<Bank>.Filter.Where(n => n.Name != getAllBanksNameQuery.Except);
-
             var filterDefinition = new FindOptions<Bank>()
             {
                 Projection = Builders<Bank>.Projection.Include(s => s.Name).Include(s => s.Accounts).Exclude("_id")
             };
 
-            var banks = await _bankRepository.FindAsync(filter, filterDefinition);
+            var banks = await _bankRepository.FindAsync(Builders<Bank>.Filter.Empty, filterDefinition);
 
             var response = new List<GetAllBanksDto>();
 
