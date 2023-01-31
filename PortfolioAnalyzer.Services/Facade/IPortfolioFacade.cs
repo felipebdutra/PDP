@@ -3,7 +3,7 @@
     public interface IPortfolioFacade
     {
         Task LoadDataAsync();
-        Task<PortfolioInfo> ProcessDataAsync();
+        Task<PortfolioInfoDto> ProcessDataAsync();
         Task LoadStoredDataAsync();
     }
 }

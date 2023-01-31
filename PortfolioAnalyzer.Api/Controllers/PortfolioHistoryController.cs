@@ -25,7 +25,7 @@ namespace PortfolioAnalyzer.Api.Controllers
 
         [HttpGet]
         [Route("GetLatestInfo")]
-        public async Task<ActionResult<PortfolioInfo>> GetLatestReport(string currency = "PLN")
+        public async Task<ActionResult<PortfolioInfoDto>> GetLatestReport(string currency = "PLN")
         {
             try
             {

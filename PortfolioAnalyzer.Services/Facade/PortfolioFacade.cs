@@ -54,13 +54,13 @@ namespace PortfolioAnalyzer.Services.Facade
             _latestExecutionDate = getLatestPrices.Result.Date;
         }
 
-        public async Task<PortfolioInfo> ProcessDataAsync()
+        public async Task<PortfolioInfoDto> ProcessDataAsync()
         {
             var wallet = new WalletService(_portfolioService, _currencyService);
             var total = await wallet.TotalPortfolioValue(_instruments);
             var totalDollarCash = _currencyService.ToTotalDollar(_totalCash);
 
-            return new PortfolioInfo()
+            return new PortfolioInfoDto()
             {
                 Date = _latestExecutionDate,
                 Total = total + totalDollarCash,

@@ -41,3 +41,5 @@
 /PortfolioAnalyzer.UnitTest/bin/Debug/net6.0
 /PortfolioAnalyzer.UnitTest/obj/Debug/net6.0
 /PortfolioAnalyzer.UnitTest/bin/Release/net6.0
+/.cr/personal/FavoritesList/List.xml
+/PortfolioAnalyzer.UnitTest/obj/PortfolioAnalyzer.UnitTest.csproj.nuget.g.targets
