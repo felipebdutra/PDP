@@ -1,4 +1,5 @@
-# PDP
+# PDP - This project was created due to learning purposes
+
 The poupose of this project is to give an easy and quick interface order to manage different stock portfolios, if you have an account in multiple brokers it get's hard to have our whole portfolio in one interface, without having to add any personal data.
 
 It consumes :
