@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
-using PortfolioAnalyzer.Infrastructure.Loggin;
+using PortfolioAnalyzer.Infrastructure.Logging;
 using PortfolioAnalyzer.Services.Facade;
 
 var provider = Config();

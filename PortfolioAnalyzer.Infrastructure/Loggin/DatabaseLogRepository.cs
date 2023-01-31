@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using PortfolioAnalyzer.Infrastructure.Repository;
 
-namespace PortfolioAnalyzer.Infrastructure.Loggin;
+namespace PortfolioAnalyzer.Infrastructure.Logging;
 
 public class DatabaseLogRepository : RepositoryBase<DatabaseLog>
 {

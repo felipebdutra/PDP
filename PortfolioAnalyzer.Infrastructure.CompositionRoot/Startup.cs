@@ -12,9 +12,9 @@ using PortfolioAnalyzer.Application.Commands.UpdatePortfolio;
 using PortfolioAnalyzer.Application.Queries.GetPortfolios;
 using PortfolioAnalyzer.Infrastructure.Database;
 using PortfolioAnalyzer.Infrastructure.Integration.Api;
-using PortfolioAnalyzer.Infrastructure.Integration.Api.Alphavantage;
+using PortfolioAnalyzer.Infrastructure.Integration.Api.AlphaVantage;
 using PortfolioAnalyzer.Infrastructure.Integration.Api.CurrencyApi;
-using PortfolioAnalyzer.Infrastructure.Loggin;
+using PortfolioAnalyzer.Infrastructure.Logging;
 using PortfolioAnalyzer.Infrastructure.Repository;
 using PortfolioAnalyzer.Repository.Bank;
 using PortfolioAnalyzer.Repository.Portfolio;
@@ -46,7 +46,7 @@ public class Startup
 
     private Startup AddHttpClient(IServiceCollection service)
     {
-        service.AddHttpClient<IStockMarketApiClient, AlphavantageClient>(
+        service.AddHttpClient<IStockMarketApiClient, AlphaVantageClient>(
             c => c.BaseAddress = new Uri(_context.Configuration["AlphaVantageBaseUrl"])
         );
 
@@ -79,7 +79,6 @@ public class Startup
     private Startup AddServices(IServiceCollection service)
     {
         service.AddScoped<IPortfolioService, PortfolioService>();
-        service.AddScoped<IPortfolioCalculatorService, PortfolioCalculatorService>();
         service.AddScoped<IStockPriceHistoryService, StockPriceHistoryService>();
         service.AddSingleton<ICurrencyConvertionService, CurrencyConvertionService>();
         service.AddScoped<IBankService, BankService>();

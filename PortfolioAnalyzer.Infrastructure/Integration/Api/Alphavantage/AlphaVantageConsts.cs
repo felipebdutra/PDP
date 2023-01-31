@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PortfolioAnalyzer.Infrastructure.Integration.Api.Alphavantage
+namespace PortfolioAnalyzer.Infrastructure.Integration.Api.AlphaVantage
 {
     public static class AlphaVantageConsts
     {

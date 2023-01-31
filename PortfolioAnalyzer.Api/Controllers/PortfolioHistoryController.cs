@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
-using PortfolioAnalyzer.Infrastructure.Loggin;
+using PortfolioAnalyzer.Infrastructure.Logging;
 using PortfolioAnalyzer.Services;
 using PortfolioAnalyzer.Services.Facade;
 

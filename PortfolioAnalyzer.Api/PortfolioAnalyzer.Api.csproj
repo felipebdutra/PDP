@@ -12,6 +12,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CoberturaConverter.Core" Version="2.0.0" />
+    <PackageReference Include="ReportGenerator.Core" Version="5.1.15" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
   <ItemGroup>

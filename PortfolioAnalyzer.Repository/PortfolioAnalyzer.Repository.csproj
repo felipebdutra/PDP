@@ -5,9 +5,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="CoberturaConverter.Core" Version="2.0.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.18.0">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
+    <PackageReference Include="ReportGenerator.Core" Version="5.1.15" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PortfolioAnalyzer.Core\PortfolioAnalyzer.Core.csproj" />

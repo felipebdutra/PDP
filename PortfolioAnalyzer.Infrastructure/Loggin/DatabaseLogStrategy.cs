@@ -2,7 +2,7 @@
 using PortfolioAnalyzer.Infrastructure.Repository;
 using System.Text;
 
-namespace PortfolioAnalyzer.Infrastructure.Loggin
+namespace PortfolioAnalyzer.Infrastructure.Logging
 {
     public class DatabaseLogStrategy : RepositoryBase<DatabaseLog> , ILogStrategy
     {

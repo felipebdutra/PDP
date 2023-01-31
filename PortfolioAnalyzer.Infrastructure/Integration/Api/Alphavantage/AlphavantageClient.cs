@@ -1,17 +1,17 @@
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 
-namespace PortfolioAnalyzer.Infrastructure.Integration.Api.Alphavantage;
+namespace PortfolioAnalyzer.Infrastructure.Integration.Api.AlphaVantage;
 
-public class AlphavantageClient : IStockMarketApiClient
+public class AlphaVantageClient : IStockMarketApiClient
 {
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
     public int ChunkSize { get => AlphaVantageConsts.RequestChunkSize; }
     public int AuthorizationDelay { get => AlphaVantageConsts.AuthorizationDelay; }
-    public bool RequiresAutorization { get => true; }
+    public bool RequiresAuthorization { get => true; }
 
-    public AlphavantageClient(HttpClient httpClient, IConfiguration configRoot)
+    public AlphaVantageClient(HttpClient httpClient, IConfiguration configRoot)
     {
         _httpClient = httpClient;
         _apiKey = configRoot["AlphaVantageApiKey"];

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PortfolioAnalyzer.Infrastructure.Loggin
+namespace PortfolioAnalyzer.Infrastructure.Logging
 {
     public interface ILogStrategy
     {

@@ -1,6 +1,6 @@
 using PortfolioAnalyzer.Core.PortfolioAggregate;
 using PortfolioAnalyzer.Infrastructure.Integration.Api;
-using PortfolioAnalyzer.Infrastructure.Loggin;
+using PortfolioAnalyzer.Infrastructure.Logging;
 using PortfolioAnalyzer.Repository.Portfolio;
 
 public class StockPriceHistoryService : IStockPriceHistoryService
@@ -45,7 +45,7 @@ public class StockPriceHistoryService : IStockPriceHistoryService
 
         foreach (var tickerChunkOf5 in chunk)
         {
-            if (_stockMarketApiClient.RequiresAutorization && prices.Any())
+            if (_stockMarketApiClient.RequiresAuthorization && prices.Any())
                 await WaitForAuthorization();
 
             await Parallel.ForEachAsync(

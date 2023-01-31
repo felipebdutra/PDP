@@ -2,28 +2,31 @@ using System.Runtime.ConstrainedExecution;
 using PortfolioAnalyzer.Core.PortfolioAggregate;
 using PortfolioAnalyzer.Services;
 
-public class WalletService
+namespace PortfolioAnalyzer.Services
 {
-    private readonly IPortfolioService _portfolioService;
-    private readonly ICurrencyConvertionService _currencyService;
-
-    public WalletService(
-        IPortfolioService portfolioService,
-        ICurrencyConvertionService currencyService
-    )
+    public class WalletService
     {
-        _portfolioService = portfolioService;
-        _currencyService = currencyService;
-    }
+        private readonly IPortfolioService _portfolioService;
+        private readonly ICurrencyConvertionService _currencyService;
 
-    public List<Portfolio> Portfolios { get; set; }
+        public WalletService(
+            IPortfolioService portfolioService,
+            ICurrencyConvertionService currencyService
+        )
+        {
+            _portfolioService = portfolioService;
+            _currencyService = currencyService;
+        }
 
-    public async Task<decimal> TotalPortfolioValue(List<FinancialInstrument> instrumentsPrice)
-    {
-        var portfolios = await _portfolioService.GetPortfoliosAsync();
+        public List<Core.PortfolioAggregate.Portfolio> Portfolios { get; set; }
 
-        portfolios.ForEach(f => f.SetPrices(instrumentsPrice));
+        public async Task<decimal> TotalPortfolioValue(List<FinancialInstrument> instrumentsPrice)
+        {
+            var portfolios = await _portfolioService.GetPortfoliosAsync();
 
-        return portfolios.Sum(s => s.GetTotal());
+            portfolios.ForEach(f => f.SetPrices(instrumentsPrice));
+
+            return portfolios.Sum(s => s.GetTotal());
+        }
     }
 }

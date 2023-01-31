@@ -6,7 +6,7 @@ public interface IStockMarketApiClient
 {
     int ChunkSize { get; }
     int AuthorizationDelay { get; }
-    bool RequiresAutorization { get; }
+    bool RequiresAuthorization { get; }
 
     Task<decimal> GetClosePriceAsync(string ticker);
 }
