@@ -4,6 +4,7 @@ The poupose of this project is to give an easy and quick interface order to mana
 It consumes :
 Alphavantage api : in order to syncronize current stock prices 
   * https://www.alphavantage.co/
+  
 Currency api : To give flexibility and allow calculation among different currencies.
   * https://currencyapi.com/
  
