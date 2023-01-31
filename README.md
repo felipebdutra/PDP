@@ -19,3 +19,10 @@ Also a simple console application in order to syncronize your portfolio and get 
 ![image](https://user-images.githubusercontent.com/33600155/215723393-a0b04fc9-214a-4ad0-b1e9-20300ff31bc4.png)
 
 
+How to use?
+
+- First use the API to register your portoflios and bank accounts
+- Then run the console app in order to syncronize current stock and bank data.
+- Call ​/api​/PortfolioHistory​/GetLatestInfo to get your report with your favourite currency
+
+![image](https://user-images.githubusercontent.com/33600155/215724408-d7f4c5d2-5672-496d-ba61-86036ea3b9a6.png)
