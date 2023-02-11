@@ -24,8 +24,8 @@ public class UpdateStockPriceHistoryService : IUpdateStockPriceHistoryService
     }
 
 
-    public async Task<StockPricesHistory> GetInstrumentStoredPricesAsync()
+    public Task<StockPricesHistory> GetInstrumentStoredPricesAsync()
     {
-        return await _stockPriceHistoryService.GetLatestHistoricClosingDateAsync();
+        return _stockPriceHistoryService.GetLatestHistoricClosingDateAsync();
     }
 }

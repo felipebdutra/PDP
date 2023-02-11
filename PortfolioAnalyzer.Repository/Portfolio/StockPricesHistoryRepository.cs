@@ -28,9 +28,9 @@ public class StockPricesHistoryRepository : IStockPricesHistoryRepository
         return document;
     }
 
-    public async Task<StockPricesHistory> GetLatestHistoricClosingDateAsync()
+    public Task<StockPricesHistory> GetLatestHistoricClosingDateAsync()
     {
-        return await _pricesHistory
+        return _pricesHistory
             .Find(Builders<StockPricesHistory>.Filter.Empty)
             .SortByDescending(s => s.Date)
             .FirstOrDefaultAsync();

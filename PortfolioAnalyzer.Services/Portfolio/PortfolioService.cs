@@ -12,18 +12,18 @@ public class PortfolioService : IPortfolioService
         _repository = repository;
     }
 
-    public async Task<IEnumerable<string>> GetTickersAsync()
+    public Task<IEnumerable<string>> GetTickersAsync()
     {
-        return await _repository.GetTickersAsync();
+        return _repository.GetTickersAsync();
     }
 
-    public async Task<List<PortfolioDto>> GetAllPortfoliosAsync()
+    public Task<List<PortfolioDto>> GetAllPortfoliosAsync()
     {
-        return await _repository.GetAllPortoliosAsync();
+        return _repository.GetAllPortoliosAsync();
     }
 
-    public async Task<List<Core.PortfolioAggregate.Portfolio>> GetPortfoliosAsync()
+    public Task<List<Core.PortfolioAggregate.Portfolio>> GetPortfoliosAsync()
     {
-        return await _repository.GetPortoliosAsync();
+        return _repository.GetPortoliosAsync();
     }
 }

@@ -21,9 +21,9 @@ namespace PortfolioAnalyzer.Services.Bank
             _currencyConvertion = currencyConvertion;
         }
 
-        public async Task<IList<BankAccount>> GetTotalCashValueAsync()
+        public Task<IList<BankAccount>> GetTotalCashValueAsync()
         {
-            return await _bankRepository.GetAllAccountsAsync();
+            return _bankRepository.GetAllAccountsAsync();
         }
     }
 }
